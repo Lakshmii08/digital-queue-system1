@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101828"><title>QueueFlow — Digital Queue</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#"><span class="brand-mark">Q</span><span>Queue<span class="brand-light">Flow</span><small>SMART QUEUE MANAGEMENT</small></span></a>
+    <div class="nav-label">WORKSPACE</div><a class="nav-item active" href="#dashboard"><span>▦</span> Dashboard</a><a class="nav-item" href="#queue-section"><span>☷</span> Live queue</a><a class="nav-item" href="#new-token"><span>＋</span> New token</a>
+    <div class="sidebar-bottom"><div class="online-dot"></div><div><strong>System operational</strong><small>Local SQLite database</small></div></div>
+  </aside>
+  <main class="main" id="dashboard">
+    <header class="topbar"><div><div class="eyebrow">OVERVIEW / DASHBOARD</div><h1>Queue dashboard</h1><p class="subheading">A calmer, faster way to manage the line.</p></div><div class="top-actions"><span class="live-pill"><i></i> Live overview</span><button class="icon-button" id="refresh-button" title="Refresh queue" aria-label="Refresh queue">↻</button></div></header>
+    <section class="stats-grid" aria-label="Queue statistics">
+      <article class="stat-card"><div class="stat-top"><span class="stat-label">Waiting now</span><span class="stat-icon amber">◷</span></div><div class="stat-value" id="waiting-count">—</div><div class="stat-foot"><span class="mini-dot amber-dot"></span> People in line</div></article>
+      <article class="stat-card"><div class="stat-top"><span class="stat-label">Currently serving</span><span class="stat-icon violet">◉</span></div><div class="stat-value" id="serving-count">—</div><div class="stat-foot">Active service desk</div></article>
+      <article class="stat-card"><div class="stat-top"><span class="stat-label">Completed today*</span><span class="stat-icon green">✓</span></div><div class="stat-value" id="completed-count">—</div><div class="stat-foot">Completed tokens in database</div></article>
+      <article class="stat-card"><div class="stat-top"><span class="stat-label">Estimated wait</span><span class="stat-icon blue">◷</span></div><div class="stat-value"><span id="wait-time">—</span><small> min</small></div><div class="stat-foot">Approx. 5 min per person</div></article>
+    </section>
+    <div class="content-grid">
+      <section class="panel new-token-panel" id="new-token"><div class="panel-heading"><div><div class="eyebrow">GET STARTED</div><h2>Create a token</h2><p>Join the queue in a few seconds.</p></div><span class="heading-icon">＋</span></div>
+        <form id="token-form"><label for="name">Full name</label><input id="name" name="name" placeholder="e.g. Aanya Sharma" maxlength="80" required autocomplete="name"><label for="department">Choose a department</label><select id="department" name="department"><option>General Enquiry</option><option>Accounts</option><option>Admissions</option><option>Technical Support</option></select><button class="primary-button" type="submit">Generate my token <span>→</span></button></form>
+        <div class="token-result hidden" id="token-result"><span class="result-check">✓</span><div><small>YOUR TOKEN NUMBER</small><strong id="created-token">Q001</strong><p id="created-message">You have joined the queue.</p></div></div>
+      </section>
+      <section class="panel serving-panel"><div class="panel-heading"><div><div class="eyebrow">SERVICE DESK</div><h2>Now serving</h2><p>The token being attended to right now.</p></div><span class="pulse-icon"><i></i></span></div>
+        <div class="serving-display"><div class="serving-caption">CURRENT TOKEN</div><div class="serving-number" id="current-token">—</div><div class="serving-name" id="current-name">No one is being served</div><span class="department-chip" id="current-department">Ready for next token</span></div>
+        <button class="primary-button call-button" id="next-button">Call next token <span>→</span></button><p class="helper-text">Call the next person after completing the current service.</p>
+      </section>
+    </div>
+    <section class="panel queue-panel" id="queue-section"><div class="queue-heading"><div><div class="eyebrow">QUEUE MANAGEMENT</div><h2>All tokens</h2><p>Track status and manage each visitor.</p></div><div class="queue-tools"><label class="search-box"><span>⌕</span><input id="search" placeholder="Search name or token" aria-label="Search queue"></label><select id="status-filter" aria-label="Filter by status"><option value="ALL">All statuses</option><option value="WAITING">Waiting</option><option value="SERVING">Serving</option><option value="COMPLETED">Completed</option></select></div></div>
+      <div class="table-wrap"><table><thead><tr><th>TOKEN</th><th>VISITOR</th><th>DEPARTMENT</th><th>CREATED</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="queue-list"><tr><td colspan="6" class="empty-cell">Loading queue…</td></tr></tbody></table></div><div class="table-footer"><span id="queue-summary">Loading tokens…</span><span class="refresh-note"><i></i> Auto-refreshes every 10 seconds</span></div>
+    </section>
+    <footer>QueueFlow <span>•</span> Digital Queue Management <span class="footer-right">*Counts reflect all records stored in this local database.</span></footer>
+    <div id="message" class="toast" role="status" aria-live="polite"></div>
+  </main>
+  <script src="app.js"></script>
+</body></html>
